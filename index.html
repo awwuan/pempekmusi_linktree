@@ -2,608 +2,308 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#11100d" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#17110d" />
+  <meta name="description" content="Pempek Musi Palembang & Coffee — South Sumatera Authentic Culinary & Coffee Experience di Surakarta." />
+  <title>Pempek Musi Palembang & Coffee</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <title>Pempek Musi Palembang &amp; Coffee | Semua Tautan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Simple Icons CDN untuk logo brand layanan pesan antar -->
   <style>
     :root {
-      --orange: #ef641f;
-      --orange2: #ff8b36;
-      --gold: #f3c95b;
-      --ink: #11120f;
-      --line: rgba(255,255,255,.11);
+      --orange: #ed5b16;
+      --orange-bright: #ff762b;
+      --gold: #e9c66d;
+      --ink: #17110d;
+      --ink-soft: #211812;
+      --cream: #fff5e9;
+      --muted: #c7b8a9;
+      --line: rgba(255, 236, 214, .13);
+      --font: "Plus Jakarta Sans", sans-serif;
     }
-
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
+    html { min-height: 100%; scroll-behavior: smooth; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      color: #fff;
-      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      /* Background luar tetap gelap; foto Palembang hanya tampil di dalam kartu */
+      margin: 0; min-height: 100vh; color: var(--cream); font-family: var(--font);
       background:
-        radial-gradient(ellipse at 50% 12%, rgba(239,100,31,.12), transparent 38%),
-        #090b09;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px 14px;
-      overflow-x: hidden;
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100svh;
+        radial-gradient(ellipse at 50% 4%, rgba(237,91,22,.19), transparent 34rem),
+        radial-gradient(ellipse at 0% 55%, rgba(112,55,19,.15), transparent 35rem),
+        linear-gradient(155deg, #100d0a 0%, #1b130e 48%, #100d0a 100%);
+      display: flex; justify-content: center; overflow-x: hidden; position: relative;
     }
-
-    .phone {
-      width: min(100%, 430px);
-      min-height: 850px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 36px;
-      padding: 26px 22px 22px;
-      /* Background dasar lama tetap terlihat di seluruh kartu */
-      background: linear-gradient(160deg, rgba(16,18,15,.98), rgba(7,11,9,.99) 55%, #11120e);
-      box-shadow: 0 28px 90px rgba(0,0,0,.65), inset 0 0 0 5px rgba(255,255,255,.025);
-      isolation: isolate;
-      animation: phoneEnter .9s cubic-bezier(.2,.8,.2,1) both;
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .12;
+      background-image: url("assets/logo.png"); background-repeat: no-repeat;
+      background-position: center 7%; background-size: min(760px, 115vw);
+      filter: blur(30px) saturate(.8); transform: scale(1.08); z-index: -2;
     }
-
-    .phone::before,
-    .phone::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      filter: blur(35px);
-      border-radius: 50%;
-      opacity: .25;
-      pointer-events: none;
-      animation: ambientFloat 8s ease-in-out infinite alternate;
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: linear-gradient(180deg, rgba(13,10,8,.48), rgba(13,10,8,.88) 72%, #100d0a);
     }
+    .ambient { position: fixed; width: 340px; height: 340px; border-radius: 50%; filter: blur(95px); opacity: .13; pointer-events:none; z-index:-1; }
+    .ambient.one { background:#ff641d; top:10%; left:-230px; }
+    .ambient.two { background:#b87c28; right:-240px; top:52%; }
 
-    .phone::before {
-      width: 220px;
-      height: 220px;
-      background: var(--orange);
-      top: -110px;
-      right: -90px;
+    /* Hiasan jatuh bertema bahan pelengkap pempek: irisan timun, cabai, dan remah. */
+    .food-rain {
+      position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0;
     }
-
-    .phone::after {
-      width: 190px;
-      height: 190px;
-      background: #9d762b;
-      bottom: 5%;
-      left: -120px;
-      animation-delay: -3s;
+    .food-particle {
+      position:absolute; top:-12vh; left:var(--x); opacity:0;
+      animation: foodFall var(--duration) linear var(--delay) infinite;
+      will-change:transform, opacity;
     }
-
-
-    .photo-bg {
-      position: absolute;
-      z-index: 0;
-      pointer-events: none;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 66%;
-      opacity: .34;
-      background-image:
-        linear-gradient(180deg, rgba(8,10,8,.30) 0%, rgba(8,10,8,.42) 55%, rgba(8,10,8,.10) 100%),
-        url("https://lahatpos.bacakoran.co/upload/c6ac63c29b0bc3dd8ffffd47ee0fe86e.jpg");
-      background-size: cover;
-      background-position: center 34%;
-      background-repeat: no-repeat;
-      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0,0,0,.72) 70%, transparent 100%);
-      mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0,0,0,.72) 70%, transparent 100%);
+    .food-particle.cucumber {
+      width:15px; height:15px; border-radius:50%;
+      border:2px solid rgba(146,190,105,.55);
+      background:
+        radial-gradient(ellipse at 50% 22%, rgba(235,241,181,.8) 0 1px, transparent 1.8px),
+        radial-gradient(ellipse at 76% 50%, rgba(235,241,181,.8) 0 1px, transparent 1.8px),
+        radial-gradient(ellipse at 50% 78%, rgba(235,241,181,.8) 0 1px, transparent 1.8px),
+        rgba(91,132,57,.22);
+      box-shadow:inset 0 0 0 3px rgba(180,211,126,.12);
     }
-
-    .phone > *:not(.photo-bg) {
-      position: relative;
-      z-index: 1;
+    .food-particle.chili {
+      width:7px; height:23px; border-radius:80% 20% 75% 25%;
+      background:linear-gradient(150deg,rgba(255,135,66,.8),rgba(184,54,20,.65));
+      box-shadow:0 0 12px rgba(237,91,22,.16);
     }
-
-    .topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #d8d5cc;
-      font-size: 12px;
-      letter-spacing: .08em;
-      margin-bottom: 22px;
-      animation: fadeDown .7s .15s both;
+    .food-particle.crumb {
+      width:5px; height:5px; border-radius:50%;
+      background:rgba(239,190,111,.65);
+      box-shadow:0 0 9px rgba(239,190,111,.2);
     }
-
-    .brand {
-      text-align: center;
-      animation: fadeUp .85s .2s both;
+    @keyframes foodFall {
+      0% { transform:translate3d(0,-8vh,0) rotate(0deg); opacity:0; }
+      8% { opacity:.55; }
+      85% { opacity:.35; }
+      100% { transform:translate3d(var(--drift),115vh,0) rotate(var(--spin)); opacity:0; }
     }
-
-    .logo {
-      width: 116px;
-      height: 116px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, #ff9b42, #e84f13 70%);
-      border: 3px solid rgba(255,220,145,.72);
-      box-shadow: 0 0 0 7px rgba(239,100,31,.10), 0 14px 38px rgba(0,0,0,.4);
-      position: relative;
-      animation: logoFloat 4s ease-in-out infinite;
+    .page {
+      width: 100%; max-width: 520px; min-height: 100vh; padding: 52px 24px 28px;
+      display: flex; flex-direction: column; align-items: center; position: relative; z-index:1;
     }
-
-    /* Logo asli tetap menggunakan file yang sudah ada */
-    .logo img {
-      width: 83px;
-      height: 83px;
-      object-fit: contain;
-      filter: drop-shadow(0 3px 2px rgba(0,0,0,.35));
+    .hero { width:100%; text-align:center; display:flex; flex-direction:column; align-items:center; }
+    .logo-wrap {
+      width: 148px; height:148px; border-radius:50%; padding:5px; position:relative;
+      background: linear-gradient(145deg, #ffe0a0, var(--orange), #8c310b);
+      box-shadow: 0 0 0 8px rgba(237,91,22,.08), 0 16px 48px rgba(0,0,0,.42), 0 0 44px rgba(237,91,22,.2);
+      animation: logoFloat 5s ease-in-out infinite;
     }
-
-    h1 {
-      font-size: 27px;
-      line-height: 1.05;
-      letter-spacing: .025em;
-      margin: 0;
-      font-weight: 850;
+    .logo-wrap::before { content:""; position:absolute; inset:-11px; border:1px solid rgba(255,203,130,.2); border-radius:50%; animation: orbit 18s linear infinite; }
+    .logo-wrap img { width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
+    .eyebrow { margin:26px 0 7px; color:var(--gold); font:600 10px/1.4 Montserrat,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    h1 { margin:0; font:800 clamp(27px, 7vw, 34px)/1.13 Montserrat,sans-serif; letter-spacing:-.055em; color:#fff8ef; }
+    .brand-sub { margin:7px 0 0; font:700 13px/1.4 Montserrat,sans-serif; letter-spacing:.19em; color:var(--orange-bright); }
+    .tagline { max-width:390px; margin:22px auto 0; color:#f2d9bd; font:700 10px/1.8 Montserrat,sans-serif; letter-spacing:.12em; }
+    .description { max-width:420px; margin:11px auto 0; color:var(--muted); font-size:13px; line-height:1.85; font-weight:400; }
+    .divider { width:54px; height:2px; margin:26px 0 44px; border-radius:10px; background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent); }
+    .links { width:100%; display:grid; gap:12px; }
+    .link-card {
+      --mx:50%; --my:50%;
+      display:flex; align-items:center; gap:15px; width:100%; min-height:76px; padding:13px 17px;
+      border:1px solid var(--line); border-radius:18px; text-decoration:none; color:var(--cream);
+      background:linear-gradient(110deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      box-shadow:0 9px 24px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.055);
+      position:relative; overflow:hidden; isolation:isolate;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, background .3s, box-shadow .3s, opacity .6s;
+      -webkit-tap-highlight-color:transparent;
     }
-
-    .subbrand {
-      color: var(--gold);
-      font-size: 11px;
-      letter-spacing: .48em;
-      font-weight: 700;
-      margin: 7px 0 13px;
-      padding-left: .48em;
+    .link-card.visible { transform:translateY(0); }
+    .link-card::before {
+      content:""; position:absolute; inset:0; z-index:-1; opacity:0;
+      background:radial-gradient(220px circle at var(--mx) var(--my), rgba(255,151,74,.18), transparent 72%);
+      transition:opacity .25s;
     }
-
-    .intro {
-      max-width: 310px;
-      margin: 0 auto;
-      color: #d6d2c9;
-      font-size: 13px;
-      line-height: 1.65;
+    .link-card:hover { transform:translateY(-4px) scale(1.012); border-color:rgba(255,156,91,.5); background:linear-gradient(110deg,rgba(237,91,22,.15),rgba(255,255,255,.045)); box-shadow:0 16px 34px rgba(0,0,0,.3),0 0 25px rgba(237,91,22,.08); }
+    .link-card:hover::before { opacity:1; }
+    .link-card:active { transform:scale(.975); }
+    .icon-box {
+      width:46px; height:46px; flex:0 0 46px; border-radius:14px; display:grid; place-items:center;
+      color:#ffc17e; background:linear-gradient(145deg,rgba(237,91,22,.24),rgba(237,91,22,.07));
+      border:1px solid rgba(255,177,105,.15);
     }
-
-    .links {
-      display: grid;
-      gap: 11px;
-      margin-top: 40px;
+    .icon-box svg { width:21px; height:21px; stroke-width:1.8; }
+    .link-copy { min-width:0; flex:1; text-align:left; }
+    .link-title { display:block; font-size:14px; font-weight:700; letter-spacing:-.02em; }
+    .link-desc { display:block; margin-top:4px; font-size:11px; color:#bfae9d; font-weight:400; }
+    .arrow { width:18px; height:18px; color:#d8b48e; transition:transform .3s,color .3s; }
+    .link-card:hover .arrow { transform:translateX(4px); color:#ffad68; }
+    .featured {
+      background:linear-gradient(105deg,#e95a16 0%,#c9470d 100%); border-color:rgba(255,199,138,.45);
+      box-shadow:0 12px 30px rgba(180,62,9,.22),inset 0 1px rgba(255,255,255,.2);
     }
-
-    .link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      color: white;
-      padding: 14px 15px;
-      border: 1px solid var(--line);
-      border-radius: 17px;
-      background: linear-gradient(110deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
-      min-height: 75px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
-      animation: cardEnter .7s cubic-bezier(.2,.8,.2,1) both;
-      animation-delay: var(--delay, 0s);
-      isolation: isolate;
-    }
-
-    .link::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(105deg, transparent 25%, rgba(255,255,255,.11) 50%, transparent 75%);
-      transform: translateX(-130%);
-      transition: transform .75s ease;
-    }
-
-    .link:hover::before { transform: translateX(130%); }
-
-    .link:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,154,76,.65);
-      background: rgba(239,100,31,.12);
-      box-shadow: 0 10px 26px rgba(0,0,0,.18);
-    }
-
-    .link:active { transform: scale(.985); }
-
-    .link.primary {
-      background: linear-gradient(105deg, #f18a31, #d94e16);
-      border-color: transparent;
-      box-shadow: 0 9px 24px rgba(218,81,21,.2);
-    }
-
-    .link.primary:hover {
-      background: linear-gradient(105deg, #ffa34b, #e75b1d);
-      box-shadow: 0 12px 30px rgba(218,81,21,.3);
-    }
-
-    .linkicon {
-      width: 43px;
-      height: 43px;
-      flex: 0 0 43px;
-      border-radius: 13px;
-      display: grid;
-      place-items: center;
-      background: rgba(239,100,31,.16);
-      color: #ffb45f;
-    }
-
-    .primary .linkicon {
-      background: rgba(255,255,255,.18);
-      color: white;
-    }
-
-    .linkicon svg {
-      width: 23px;
-      height: 23px;
-    }
-
-    /* Kotak logo platform */
-    .linkicon.platform {
-      background: #fff;
-      border-radius: 12px;
-      padding: 8px;
-    }
-
-    .linkicon.platform img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .linktext { min-width: 0; flex: 1; }
-
-    .linktitle {
-      display: block;
-      font-size: 14px;
-      font-weight: 750;
-      letter-spacing: .01em;
-      margin-bottom: 4px;
-    }
-
-    .linkdesc {
-      display: block;
-      color: #d0ccc2;
-      font-size: 11px;
-      line-height: 1.35;
-    }
-
-    .primary .linkdesc { color: #fff1e5; }
-
-    .arrow {
-      font-size: 23px;
-      color: #e9e3d8;
-      line-height: 1;
-      margin-left: 4px;
-      transition: transform .25s ease;
-    }
-
-    .link:hover .arrow { transform: translateX(5px); }
-
-    .footer {
-      text-align: center;
-      margin-top: 24px;
-      color: #a9a59b;
-      font-size: 10px;
-      line-height: 1.8;
-      animation: fadeUp .8s .8s both;
-    }
-
-    .footer strong {
-      color: #f4a14e;
-      letter-spacing: .12em;
-    }
-
+    .featured .icon-box { color:#fff5e8; background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.18); }
+    .featured .link-desc { color:rgba(255,245,232,.78); }
+    .featured .arrow { color:#fff1df; }
+    .featured:hover { background:linear-gradient(105deg,#ff6a20,#d94b0d); border-color:rgba(255,220,181,.7); }
+    .social-note { margin:24px 0 0; color:#b7a18c; font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
+    footer { width:100%; text-align:center; margin-top:auto; padding-top:42px; color:#8f8072; font-size:10px; line-height:1.9; }
+    footer .footer-mark { display:inline-flex; align-items:center; gap:7px; color:#d8b18b; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    footer .footer-mark svg { width:14px; height:14px; color:var(--orange-bright); }
     .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 25px;
-      transform: translate(-50%, 20px);
-      opacity: 0;
-      pointer-events: none;
-      background: #f7e7cf;
-      color: #2b1a10;
-      padding: 11px 17px;
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 8px 30px #0008;
-      transition: .3s;
-      z-index: 5;
-      white-space: nowrap;
+      position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px); opacity:0; pointer-events:none;
+      padding:12px 17px; border-radius:30px; border:1px solid rgba(255,194,132,.25);
+      background:rgba(35,23,15,.94); color:#fff1df; font-size:12px; box-shadow:0 10px 35px #0008;
+      transition:all .3s; z-index:10; width:max-content; max-width:calc(100% - 36px); text-align:center;
     }
-
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    /* Konten tetap terlihat meskipun JavaScript/CDN tidak tersedia. */
+    .reveal { opacity:1; transform:none; }
+    .reveal.visible { animation: revealIn .65s ease both; }
+    @keyframes revealIn { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes logoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes orbit { to { transform:rotate(360deg); } }
+    @media (min-width:700px) {
+      .page { padding-top:66px; padding-bottom:32px; }
+      .logo-wrap { width:158px; height:158px; }
+      .links { gap:13px; }
+      .link-card { min-height:80px; padding:15px 19px; }
     }
-
-
-    h1 {
-      font-family: "Playfair Display", Georgia, serif;
-      font-weight: 700;
-      letter-spacing: .015em;
-      font-size: 30px;
+    @media (max-width:380px) {
+      .page { padding:42px 17px 22px; }
+      .logo-wrap { width:132px; height:132px; }
+      .description { font-size:12px; }
+      .link-card { min-height:70px; padding:11px 13px; gap:12px; }
+      .icon-box { width:42px; height:42px; flex-basis:42px; }
     }
-
-    .subbrand {
-      letter-spacing: .28em;
-      font-size: 11px;
-    }
-
-    .tagline {
-      max-width: 330px;
-      margin: 13px auto 10px;
-      color: #f3c95b;
-      font-size: 10px;
-      line-height: 1.6;
-      font-weight: 800;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .intro {
-      max-width: 330px;
-      font-size: 13px;
-      line-height: 1.75;
-    }
-
-    .phone::after {
-      animation: ambientFloat 10s ease-in-out infinite alternate;
-    }
-
-    .linktitle {
-      font-family: "DM Sans", sans-serif;
-      font-weight: 800;
-    }
-
-    @media (max-width: 390px) {
-      h1 { font-size: 27px; }
-      .tagline { font-size: 9px; }
-    }
-
-    @keyframes phoneEnter {
-      from { opacity: 0; transform: translateY(-32px) scale(.985); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(-24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-34px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes cardEnter {
-      from { opacity: 0; transform: translateY(-28px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-
-    @keyframes ambientFloat {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(14px, 18px) scale(1.12); }
-    }
-
-    @media (max-width: 390px) {
-      .phone { padding: 22px 16px; border-radius: 28px; min-height: 0; background-position: center center; }
-      .logo { width: 102px; height: 102px; }
-      h1 { font-size: 24px; }
-      .link { min-height: 70px; padding: 12px; }
-      .intro { font-size: 12px; }
-    }
-
-
-    /* Desktop: keep a phone-sized layout centered in the browser window.
-       Mobile: make the page/card fill the screen edge-to-edge with no outer margin. */
-    @media (min-width: 600px) {
-      body {
-        padding: 28px 14px;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .phone {
-        width: min(100%, 430px);
-        min-height: 850px;
-        border-radius: 36px;
-      }
-    }
-
-    @media (max-width: 599px) {
-      html, body {
-        width: 100%;
-        min-width: 0;
-        margin: 0;
-      }
-
-      body {
-        display: block;
-        padding: 0;
-        min-height: 100vh;
-        min-height: 100svh;
-        overflow-x: hidden;
-      }
-
-      .phone {
-        width: 100%;
-        max-width: none;
-        min-height: 100vh;
-        min-height: 100svh;
-        margin: 0;
-        border-radius: 0;
-        border-left: 0;
-        border-right: 0;
-        padding: max(22px, env(safe-area-inset-top)) 20px
-                 max(22px, env(safe-area-inset-bottom));
-        box-shadow: none;
-      }
-
-      .photo-bg {
-        width: 100%;
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
+      *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+      .food-particle { display:none; }
     }
   </style>
 </head>
-
 <body>
-  <main class="phone">
-      <div class="photo-bg" aria-hidden="true"></div>
-    <div class="topline">
-      <span>PEMPEK MUSI</span>
-      <span>AUTHENTIC TASTE</span>
-    </div>
-
-    <header class="brand">
-      <div class="logo" aria-label="Logo Pempek Musi">
-        <img src="Logo Pempek.png" alt="Logo Pempek Musi" />
-      </div>
-
-      <h1>PEMPEK MUSI</h1>
-      <div class="subbrand">PALEMBANG &amp; COFFEE</div>
-      <p class="tagline">SOUTH SUMATERA AUTHENTIC CULINARY &amp; COFFEE EXPERIENCE</p>
-      <p class="intro">
-        Nikmati kelezatan Pempek khas Palembang dan Kopi Semendo Sumatera Selatan di Surakarta. Temukan lokasi dan pesan favoritmu dengan mudah melalui tautan dibawah ini.
-      </p>
+  <div class="ambient one"></div><div class="ambient two"></div>
+  <div class="food-rain" aria-hidden="true">
+    <span class="food-particle cucumber" style="--x:7%;--delay:-4s;--duration:19s;--drift:24px;--spin:220deg"></span>
+    <span class="food-particle crumb" style="--x:17%;--delay:-13s;--duration:16s;--drift:-18px;--spin:160deg"></span>
+    <span class="food-particle chili" style="--x:28%;--delay:-8s;--duration:22s;--drift:30px;--spin:300deg"></span>
+    <span class="food-particle cucumber" style="--x:42%;--delay:-16s;--duration:21s;--drift:-25px;--spin:260deg"></span>
+    <span class="food-particle crumb" style="--x:54%;--delay:-2s;--duration:18s;--drift:17px;--spin:180deg"></span>
+    <span class="food-particle chili" style="--x:66%;--delay:-11s;--duration:24s;--drift:-28px;--spin:240deg"></span>
+    <span class="food-particle cucumber" style="--x:79%;--delay:-6s;--duration:20s;--drift:22px;--spin:320deg"></span>
+    <span class="food-particle crumb" style="--x:91%;--delay:-15s;--duration:17s;--drift:-16px;--spin:140deg"></span>
+    <span class="food-particle chili" style="--x:96%;--delay:-19s;--duration:25s;--drift:20px;--spin:280deg"></span>
+  </div>
+  <main class="page">
+    <header class="hero">
+      <div class="logo-wrap reveal"><img src="assets/logo.png" alt="Logo Pempek Musi Palembang"></div>
+      <p class="eyebrow reveal">A taste of South Sumatera</p>
+      <h1 class="reveal">PEMPEK MUSI</h1>
+      <p class="brand-sub reveal">PALEMBANG &amp; COFFEE</p>
+      <p class="tagline reveal">SOUTH SUMATERA AUTHENTIC CULINARY<br> &amp; COFFEE EXPERIENCE</p>
+      <p class="description reveal">Nikmati kelezatan Pempek khas Palembang dan Kopi Semendo Sumatera Selatan di Surakarta. Temukan lokasi dan pesan favoritmu dengan mudah melalui tautan di bawah ini.</p>
+      <div class="divider reveal"></div>
     </header>
 
-    <section class="links" id="tautan" aria-label="Tautan Pempek Musi">
-      <a class="link primary" style="--delay:.05s" href="https://wa.me/62XXXXXXXXXX" target="_blank" rel="noopener">
-        <span class="linkicon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M20 11.5a8.3 8.3 0 0 1-12.3 7.2L3 20l1.3-4.5A8.3 8.3 0 1 1 20 11.5Z"/>
-            <path d="M8.5 8.5c.5 2.5 2.5 4.5 5 5l1.2-1.2 2 1c-.2 1.2-1 2-2.3 2-3.8-.3-7.3-3.8-7.6-7.6 0-1.3.8-2.1 2-2.3l1 2z"/>
-          </svg>
-        </span>
-        <span class="linktext">
-          <span class="linktitle">WhatsApp Admin</span>
-          <span class="linkdesc">Hubungi admin untuk tanya menu dan pemesanan</span>
-        </span>
-        <span class="arrow">›</span>
+    <section class="links" aria-label="Tautan Pempek Musi">
+      <a class="link-card featured" data-link="whatsapp" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="message-circle"></i></span>
+        <span class="link-copy"><span class="link-title">WhatsApp</span><span class="link-desc">Pesan langsung &amp; tanya menu</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
-
-      <a class="link" style="--delay:.1s" href="https://www.google.com/maps/search/?api=1&query=Pempek+Musi+Palembang+Cabang+Solo" target="_blank" rel="noopener">
-        <span class="linkicon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
-            <circle cx="12" cy="10" r="2.5"/>
-          </svg>
-        </span>
-        <span class="linktext">
-          <span class="linktitle">Lokasi Kami</span>
-          <span class="linkdesc">Lihat lokasi dan petunjuk arah di Google Maps</span>
-        </span>
-        <span class="arrow">›</span>
+      <a class="link-card" data-link="maps" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="map-pin"></i></span>
+        <span class="link-copy"><span class="link-title">Lokasi &amp; Google Maps</span><span class="link-desc">Temukan outlet Pempek Musi</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
-
-      <a class="link" style="--delay:.15s" href="https://food.grab.com/id/id/" target="_blank" rel="noopener">
-        <span class="linkicon platform">
-          <img src="https://cdn.simpleicons.org/grab/00B14F" alt="Grab" loading="lazy"
-               onerror="this.style.display='none'; this.parentElement.textContent='G';" />
-        </span>
-        <span class="linktext">
-          <span class="linktitle">GrabFood</span>
-          <span class="linkdesc">Pesan Pempek Musi melalui GrabFood</span>
-        </span>
-        <span class="arrow">›</span>
+      <a class="link-card" data-link="grabfood" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="bike"></i></span>
+        <span class="link-copy"><span class="link-title">GrabFood</span><span class="link-desc">Nikmati dari rumah dengan Grab</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
-
-      <a class="link" style="--delay:.2s" href="https://gofood.co.id/" target="_blank" rel="noopener">
-        <span class="linkicon platform">
-          <img src="https://cdn.simpleicons.org/gojek/00AA5B" alt="Gojek" loading="lazy"
-               onerror="this.style.display='none'; this.parentElement.textContent='G';" />
-        </span>
-        <span class="linktext">
-          <span class="linktitle">GoFood</span>
-          <span class="linkdesc">Nikmati menu favoritmu lewat GoFood</span>
-        </span>
-        <span class="arrow">›</span>
+      <a class="link-card" data-link="gofood" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="utensils"></i></span>
+        <span class="link-copy"><span class="link-title">GoFood</span><span class="link-desc">Pesan favoritmu lewat GoFood</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
-
-      <a class="link" style="--delay:.25s" href="https://shopee.co.id/m/shopeefood" target="_blank" rel="noopener">
-        <span class="linkicon platform">
-          <img src="https://cdn.simpleicons.org/shopee/EE4D2D" alt="Shopee" loading="lazy"
-               onerror="this.style.display='none'; this.parentElement.textContent='S';" />
-        </span>
-        <span class="linktext">
-          <span class="linktitle">ShopeeFood</span>
-          <span class="linkdesc">Pesan praktis melalui ShopeeFood</span>
-        </span>
-        <span class="arrow">›</span>
+      <a class="link-card" data-link="shopeefood" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="shopping-bag"></i></span>
+        <span class="link-copy"><span class="link-title">ShopeeFood</span><span class="link-desc">Cari Pempek Musi di ShopeeFood</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
-
-      <a class="link" style="--delay:.3s" href="https://www.tiktok.com/" target="_blank" rel="noopener">
-        <span class="linkicon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.6 7.2a6.7 6.7 0 0 1-4.1-1.4v8.1a6.2 6.2 0 1 1-5.4-6.1v3.4a2.9 2.9 0 1 0 2 2.8V2.5h3.4c.2 2 1.8 3.7 4.1 3.9z"/>
-          </svg>
-        </span>
-        <span class="linktext">
-          <span class="linktitle">TikTok</span>
-          <span class="linkdesc">Ikuti kami untuk update dan konten terbaru</span>
-        </span>
-        <span class="arrow">›</span>
+      <a class="link-card" data-link="tiktok" href="#" target="_blank" rel="noopener">
+        <span class="icon-box"><i data-lucide="music-2"></i></span>
+        <span class="link-copy"><span class="link-title">TikTok</span><span class="link-desc">Ikuti cerita &amp; update terbaru kami</span></span>
+        <i class="arrow" data-lucide="arrow-up-right"></i>
       </a>
     </section>
 
-    <footer class="footer">
-      <strong>PEMPEK MUSI PALEMBANG &amp; COFFEE</strong>
-      <br />
+    <p class="social-note reveal">Authentic taste · Made with passion</p>
+    <footer class="reveal">
+      <strong>PEMPEK MUSI PALEMBANG &amp; COFFEE</strong><br>
       Terima kasih sudah berkunjung. Selamat menikmati!
     </footer>
   </main>
-
-  <div class="toast" id="toast">Tautan halaman berhasil disalin</div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // Animasi kartu saat disentuh pada perangkat mobile.
-    document.querySelectorAll(".link").forEach((link) => {
-      link.addEventListener("pointerdown", () => {
-        link.classList.add("pressed");
-      });
+    // GANTI URL di bawah dengan tautan resmi milik Pempek Musi.
+    const LINKS = {
+      whatsapp: "https://wa.me/62XXXXXXXXXXX",
+      maps: "https://maps.app.goo.gl/ISI_LINK_GOOGLE_MAPS",
+      grabfood: "https://food.grab.com/id/id/",
+      gofood: "https://gofood.co.id/",
+      shopeefood: "https://shopee.co.id/",
+      tiktok: "https://www.tiktok.com/@USERNAME"
+    };
 
-      ["pointerup", "pointerleave", "pointercancel"].forEach((eventName) => {
-        link.addEventListener(eventName, () => {
-          link.classList.remove("pressed");
-        });
-      });
-    });
+    // Ikon bersifat tambahan: halaman tetap berfungsi jika CDN ikon gagal dimuat.
+    if (window.lucide && typeof window.lucide.createIcons === "function") {
+      window.lucide.createIcons();
+    }
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Efek pemberitahuan sederhana jika tombol berbagi ditambahkan nanti.
     const toast = document.getElementById("toast");
+    let toastTimer;
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add("show");
-      window.setTimeout(() => toast.classList.remove("show"), 2200);
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    // Masukkan URL dari konfigurasi ke setiap kartu. Link contoh yang belum diganti
+    // akan menampilkan pesan, bukan membuka alamat yang keliru.
+    document.querySelectorAll("[data-link]").forEach(card => {
+      const key = card.dataset.link;
+      const url = LINKS[key];
+      card.href = url || "#";
+      card.addEventListener("click", event => {
+        if (!url || /XXXXXXXX|ISI_LINK|USERNAME/.test(url)) {
+          event.preventDefault();
+          showToast("Tautan " + key + " belum diatur. Edit URL pada bagian LINKS di file index.html.");
+        }
+      });
+      card.addEventListener("pointermove", event => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (event.clientX-r.left)+"px");
+        card.style.setProperty("--my", (event.clientY-r.top)+"px");
+      });
+    });
+
+    // Animasi masuk bertahap saat halaman dibuka / elemen terlihat.
+    const animatedElements = document.querySelectorAll(".reveal, .link-card");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      animatedElements.forEach((el, index) => {
+        el.style.animationDelay = Math.min(index * 65, 520) + "ms";
+        observer.observe(el);
+      });
+    } else {
+      animatedElements.forEach(el => el.classList.add("visible"));
     }
   </script>
 </body>

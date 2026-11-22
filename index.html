@@ -25,9 +25,10 @@
       --font: "Plus Jakarta Sans", sans-serif;
     }
     * { box-sizing: border-box; }
-    html { min-height: 100%; scroll-behavior: smooth; }
+    html { height: 100%; scroll-behavior: smooth; }
     body {
-      margin: 0; min-height: 100vh; color: var(--cream); font-family: var(--font);
+      margin: 0; height: 100vh; height: 100dvh; overflow: hidden;
+      overscroll-behavior: none; color: var(--cream); font-family: var(--font);
       background:
         radial-gradient(ellipse at 50% 4%, rgba(237,91,22,.19), transparent 34rem),
         radial-gradient(ellipse at 0% 55%, rgba(112,55,19,.15), transparent 35rem),
@@ -84,12 +85,16 @@
       100% { transform:translate3d(var(--drift),115vh,0) rotate(var(--spin)); opacity:0; }
     }
     .page {
-      width: 100%; max-width: 520px; min-height: 100vh; padding: 52px 24px 28px;
-      display: flex; flex-direction: column; align-items: center; position: relative; z-index:1;
+      width: 100%; max-width: 520px; height: 100vh; height: 100dvh; min-height: 0;
+      padding: 52px 24px 28px; display: flex; flex-direction: column; align-items: center;
+      position: relative; z-index:1; overflow-y: auto; overflow-x: hidden;
+      overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .page::-webkit-scrollbar { display:none; }
     .hero { width:100%; text-align:center; display:flex; flex-direction:column; align-items:center; }
     .logo-wrap {
-      width: 148px; height:148px; border-radius:50%; padding:5px; position:relative;
+      width: 148px; height:148px; margin-bottom:17px; border-radius:50%; padding:5px; position:relative;
       background: linear-gradient(145deg, #ffe0a0, var(--orange), #8c310b);
       box-shadow: 0 0 0 8px rgba(237,91,22,.08), 0 16px 48px rgba(0,0,0,.42), 0 0 44px rgba(237,91,22,.2);
       animation: logoFloat 5s ease-in-out infinite;
@@ -101,7 +106,7 @@
     .brand-sub { margin:7px 0 0; font:700 13px/1.4 Montserrat,sans-serif; letter-spacing:.19em; color:var(--orange-bright); }
     .tagline { max-width:390px; margin:22px auto 0; color:#f2d9bd; font:700 10px/1.8 Montserrat,sans-serif; letter-spacing:.12em; }
     .description { max-width:420px; margin:11px auto 0; color:var(--muted); font-size:13px; line-height:1.85; font-weight:400; }
-    .divider { width:54px; height:2px; margin:26px 0 44px; border-radius:10px; background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent); }
+    .divider { width:54px; height:2px; margin:24px auto 30px; align-self:center; border-radius:10px; background:linear-gradient(90deg,transparent,var(--orange),var(--gold),transparent); }
     .links { width:100%; display:grid; gap:12px; }
     .link-card {
       --mx:50%; --my:50%;
@@ -193,7 +198,6 @@
   <main class="page">
     <header class="hero">
       <div class="logo-wrap reveal"><img src="assets/logo.png" alt="Logo Pempek Musi Palembang"></div>
-      <p class="eyebrow reveal">A taste of South Sumatera</p>
       <h1 class="reveal">PEMPEK MUSI</h1>
       <p class="brand-sub reveal">PALEMBANG &amp; COFFEE</p>
       <p class="tagline reveal">SOUTH SUMATERA AUTHENTIC CULINARY<br> &amp; COFFEE EXPERIENCE</p>
@@ -234,7 +238,7 @@
       </a>
     </section>
 
-    <p class="social-note reveal">Authentic taste · Made with passion</p>
+    <p class="social-note reveal">A taste of South Sumatera</p>
     <footer class="reveal">
       <strong>PEMPEK MUSI PALEMBANG &amp; COFFEE</strong><br>
       Terima kasih sudah berkunjung. Selamat menikmati!

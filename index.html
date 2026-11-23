@@ -307,7 +307,7 @@
       text-transform: uppercase;
     }
 
-    
+
     .links {
       width: 100%;
       display: grid;
@@ -743,7 +743,7 @@
       whatsapp: "https://wa.me/62XXXXXXXXXXX",
       maps: "https://maps.app.goo.gl/ZLjtQn92fhajZrnA6",
       grabfood: "https://app.grab.com/s/86vKhkA2",
-      gofood: "* https://gofood.link/a/TP2FYR7",
+      gofood: "https://gofood.link/a/TP2FYR7",
       shopeefood: "https://shopee.co.id/universal-link/now-food/shop/22858018?deep_and_deferred=1&shareChannel=copy_link",
       tiktok: "https://www.tiktok.com/@pempekmusi.solo?_r=1&_t=ZS-9BaMtXMMMxK"
     };
@@ -752,7 +752,11 @@
     if (window.lucide && typeof window.lucide.createIcons === "function") {
       window.lucide.createIcons();
     }
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const yearElement = document.getElementById("year");
+
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
 
     const toast = document.getElementById("toast");
     let toastTimer;
@@ -765,20 +769,21 @@
 
     // Masukkan URL dari konfigurasi ke setiap kartu. Link contoh yang belum diganti
     // akan menampilkan pesan, bukan membuka alamat yang keliru.
-    document.querySelectorAll("[data-link]").forEach(card => {
+    document.querySelectorAll(".link-card[data-link]").forEach(card => {
       const key = card.dataset.link;
       const url = LINKS[key];
-      card.href = url || "#";
+
+      if (url) {
+        card.href = url;
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+      }
+
       card.addEventListener("click", event => {
         if (!url || /XXXXXXXX|ISI_LINK|USERNAME/.test(url)) {
           event.preventDefault();
-          showToast("Tautan " + key + " belum diatur. Edit URL pada bagian LINKS di file index.html.");
+          showToast("Tautan " + key + " belum diatur.");
         }
-      });
-      card.addEventListener("pointermove", event => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", (event.clientX - r.left) + "px");
-        card.style.setProperty("--my", (event.clientY - r.top) + "px");
       });
     });
 

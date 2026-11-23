@@ -212,10 +212,22 @@
       align-items: center;
     }
 
+
+    .brand-header {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      margin: 0 auto 30px;
+    }
+
     .logo-wrap {
-      width: 148px;
-      height: 148px;
-      margin-bottom: 17px;
+      width: 120px;
+      height: 120px;
+      flex: 0 0 120px;
+      margin-bottom: 0;
       border-radius: 50%;
       padding: 5px;
       position: relative;
@@ -240,6 +252,19 @@
       border-radius: 50%;
       display: block;
     }
+
+    .brand-title-image {
+      display: block;
+      flex: 0 1 270px;
+      min-width: 0;
+      width: 100%;
+      max-width: 270px;
+      height: auto;
+      max-height: 65px;
+      object-fit: contain;
+      margin: 0;
+    }
+
 
     .eyebrow {
       margin: 26px 0 7px;
@@ -272,10 +297,10 @@
     }
 
     .description {
-      max-width: 420px;
-      margin: 11px auto 0;
+      max-width: 470px;
+      margin: 30px auto 0;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 16px;
       line-height: 1.85;
       font-weight: 400;
     }
@@ -283,7 +308,7 @@
     .divider {
       width: 54px;
       height: 2px;
-      margin: 24px auto 30px;
+      margin: 35px auto 35px;
       align-self: center;
       border-radius: 10px;
       background: linear-gradient(90deg, transparent, var(--orange), var(--gold), transparent);
@@ -553,9 +578,19 @@
         padding-bottom: 32px;
       }
 
+      .brand-header {
+        max-width: 520px;
+        gap: 18px;
+      }
+
       .logo-wrap {
-        width: 158px;
-        height: 158px;
+        width: 132px;
+        height: 132px;
+        flex-basis: 132px;
+      }
+
+      .brand-title-image {
+        max-height: 132px;
       }
 
       .links {
@@ -568,14 +603,39 @@
       }
     }
 
+    @media (max-width:480px) {
+      .brand-header {
+        gap: 12px;
+      }
+
+      .logo-wrap {
+        width: 90px;
+        height: 90px;
+        flex-basis: 90px;
+      }
+
+      .brand-title-image {
+        max-height: 90px;
+      }
+    }
+
     @media (max-width:380px) {
       .page {
         padding: 42px 17px 22px;
       }
 
+      .brand-header {
+        gap: 8px;
+      }
+
       .logo-wrap {
-        width: 132px;
-        height: 132px;
+        width: 76px;
+        height: 76px;
+        flex-basis: 76px;
+      }
+
+      .brand-title-image {
+        max-height: 76px;
       }
 
       .description {
@@ -629,10 +689,11 @@
   </div>
   <main class="page">
     <header class="hero">
-      <div class="logo-wrap reveal"><img src="assets/logo.png" alt="Logo Pempek Musi Palembang"></div>
-      <h1 class="reveal">PEMPEK MUSI</h1>
-      <p class="brand-sub reveal">PALEMBANG &amp; COFFEE</p>
-      <p class="tagline reveal">SOUTH SUMATERA AUTHENTIC CULINARY<br> &amp; COFFEE EXPERIENCE</p>
+      <div class="brand-header">
+        <div class="logo-wrap reveal"><img src="assets/logo.png" alt="Logo Pempek Musi Palembang"></div>
+        <img class="brand-title-image reveal" src="assets/logo_home.png"
+          alt="Pempek Musi Palembang & Coffee — South Sumatera Authentic Culinary & Coffee Experience">
+      </div>
       <p class="description reveal">Nikmati kelezatan Pempek khas Palembang dan Kopi Semendo Sumatera Selatan di
         Surakarta. Temukan lokasi dan pesan favoritmu dengan mudah melalui tautan di bawah ini.</p>
       <div class="divider reveal"></div>
